@@ -73,8 +73,8 @@ def index():
         {
             'data': [
                 Bar(
-                    x=genre_names,
-                    y=genre_counts
+                    x=category_names,
+                    y=category_counts
                 )
             ],
 
@@ -91,8 +91,8 @@ def index():
         {
             'data': [
                 Bar(
-                    x=genre_names,
-                    y=genre_counts
+                    x=top_words_names,
+                    y=top_words
                 )
             ],
 
