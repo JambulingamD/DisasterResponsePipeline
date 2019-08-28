@@ -26,6 +26,9 @@ are thereafter distributed using a web page created using flask.
 
 ### Files used:
 data/process_data.py: for doing the ETL
+
 models/train_classifier.py: for doing the ML Pipeline
+
 run.py: to create the web page and run it in the web server using flask
+
 app/templates/: web content
