@@ -16,6 +16,15 @@ from sklearn.multioutput import MultiOutputClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
 def load_data(database_filepath):
+    """
+    Args:
+        database_filepath: sqlite database filename to load the data from
+    Returns:
+        Pandas DataFrames
+        X - message
+        Y - labels
+        category_names - column names
+    """
     engine = create_engine('sqlite:///' + database_filepath)
     df = pd.read_sql_query('select * from cleanData', engine)
     X = df['message'].values
@@ -24,6 +33,12 @@ def load_data(database_filepath):
     return X, Y, category_names
 
 def tokenize(text):
+    """
+    Args:
+        text: Text that needs to be tokenized
+    Returns:
+        clean_tokens: array of tokens after cleaning
+    """
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
     clean_tokens = []
@@ -33,6 +48,12 @@ def tokenize(text):
     return clean_tokens
 
 def build_model():
+    """
+    Args:
+        Nothing
+    Returns:
+        cv: Classification Model
+    """
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -43,6 +64,15 @@ def build_model():
     return cv
  
 def evaluate_model(model, X_test, Y_test, category_names):
+    """
+    Args:
+        model: Trained Classification Model
+        X_test: Test Features
+        Y_test: Test Labels
+        category_names: Array of category names
+    Returns:
+        Prints Accuracy Score
+    """
     Y_pred = model.predict(X_test)
     print(classification_report(Y_test, Y_pred, target_names=category_names))
     print("Accuracy scores per category\n")
@@ -50,6 +80,13 @@ def evaluate_model(model, X_test, Y_test, category_names):
         print("Accuracy score for " + Y_test.columns[i], accuracy_score(Y_test.values[:,i],Y_pred[:,i]))
 
 def save_model(model, model_filepath):
+    """
+    Args:
+        model: Trained Classification Model
+        model_filepath: Filepath to save the Trained Classification Model
+    Returns:
+        Nothing
+    """
     pickle.dump(model, open(model_filepath, 'wb'))
 
 def main():
