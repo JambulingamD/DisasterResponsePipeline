@@ -25,10 +25,10 @@ are thereafter distributed using a web page created using flask.
 3. Go to http://0.0.0.0:3001/
 
 ### Files used:
-data/process_data.py: for doing the ETL
+`data/process_data.py`: for doing the ETL
 
-models/train_classifier.py: for doing the ML Pipeline
+`models/train_classifier.py`: for doing the ML Pipeline
 
-run.py: to create the web page and run it in the web server using flask
+`run.py`: to create the web page and run it in the web server using flask
 
-app/templates/: web content
+`app/templates/`: web content
